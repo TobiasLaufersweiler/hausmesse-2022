@@ -1,0 +1,53 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  adminer:
+    image: adminer
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - 8080:8080
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - server
+      - frontend
+    restart: always
+    ports:
+      - 80:80
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    volumes:
+      - /usr/src/app/node_modules
+      - ./server:/usr/src/app
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - 5000:5000
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - /usr/src/app/node_modules
+      - ./frontend:/usr/src/app
+    environment:
+      - WATCHPACK_POLLING=true
+    depends_on:
+      - server
+    restart: always
+    ports:
+      - 3001:3000
