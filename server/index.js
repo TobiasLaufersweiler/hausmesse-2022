@@ -1,29 +1,43 @@
 const express = require('express')
+const cors = require('cors')
+const dotenv = require('dotenv')
+const path = require('path')
+
+dotenv.config({ path: path.resolve(process.cwd(), '..', '.env') })
+
+const db = require('./app/models')
+
+const dataRoutes = require('./app/routes/data.routes')
+
+const PORT = process.env.SERVER_PORT || 5000
+
 const app = express()
 
-const PORT = 5000
+db.sequelize
+	.sync()
+	.then(() => {
+		console.log('Synced db.')
+	})
+	.catch((err) => {
+		console.log('Failed to sync db: ' + err.message)
+	})
 
-app.get('/', (req, res) => res.json({ hello: 'world' }))
+var corsOptions = {
+	origin: `http://localhost:${PORT + 1}`,
+}
 
-app.post('/data', (req, res) => {
-	const data = req.body
-	console.log(data)
+app.use(cors(corsOptions))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-	// Save data to DB
+app.get('/', (req, res) =>
+	res.json({
+		name: 'hausmesse-2022',
+		authors: 'Marc Wissler, Ian Murawski, Tobias Laufersweiler',
+	})
+)
 
-	// Broadcast data via Socket.IO
-})
-
-app.get('/data', (req, res) => {
-	res.json([
-		{
-			id: 1,
-			temperature: 23.1,
-			humidity: 67,
-			timestamp: Date.now(),
-		},
-	])
-})
+dataRoutes(app)
 
 app.listen(PORT, () => {
 	console.log(`Listening on http://localhost:${PORT}`)

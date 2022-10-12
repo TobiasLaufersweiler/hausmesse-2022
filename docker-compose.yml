@@ -1,9 +1,12 @@
+version: '3'
+
 services:
   db:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
     ports:
       - 3306:3306
 
@@ -48,7 +51,7 @@ services:
       - db
     restart: always
     ports:
-      - 5001:5000
+      - 5001:${SERVER_PORT}
 
   frontend:
     build:
@@ -63,4 +66,4 @@ services:
       - server
     restart: always
     ports:
-      - 3001:3000
+      - 3001:${FRONTEND_PORT}
