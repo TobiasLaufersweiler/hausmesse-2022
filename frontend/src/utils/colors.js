@@ -1,9 +1,11 @@
 const colors = {
-	grey: '#4c5454',
-	orange: '#ff715b',
+	red: '#e63946',
+	light: '#f1faee',
+	lightBlue: '#a8dadc',
+	mediumBlue: '#457b9d',
+	darkBlue: '#1d3557',
 	white: '#ffffff',
-	green: '#1ea896',
-	brown: '#523f38',
+	black: '#000000',
 }
 
 export default colors

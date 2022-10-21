@@ -1,7 +1,4 @@
-import React from 'react'
+import TemperatureChart from './Temperature'
+import HumidityChart from './Humidity'
 
-const Chart = () => {
-	return <p>Chart</p>
-}
-
-export default Chart
+export { TemperatureChart, HumidityChart }
