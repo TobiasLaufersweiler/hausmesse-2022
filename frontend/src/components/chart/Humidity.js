@@ -28,7 +28,7 @@ const HumidityChart = () => {
 				interval={450}
 				dataKey='timestamp'
 				tickFormatter={(value, index) => {
-					return moment(value).format('hh:mm')
+					return moment(value).format('HH:mm')
 				}}
 			/>
 			<YAxis domain={['dataMin - 1', 'dataMax + 1']} />

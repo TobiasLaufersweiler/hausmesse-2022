@@ -14,12 +14,10 @@ GPIO.cleanup()
 dht11Instance = dht11.DHT11(pin = 14)
 
 def get_temperature(dht11Result):
-    # return dht11Result.temperature
-    return 23.4
+    return dht11Result.temperature
 
 def get_humidity(dht11Result):
-    # return dht11Result.humidity
-    return 64.2
+    return dht11Result.humidity
 
 
 def read_data_and_send_to_server():
@@ -38,7 +36,7 @@ def read_data_and_send_to_server():
         }
 
         # Send data to backend
-        res = requests.get("http://localhost/api/data", data)
+        res = requests.post("http://localhost/api/data", data)
 
         # Show result or error
         try:
@@ -48,10 +46,6 @@ def read_data_and_send_to_server():
     else:
         print("Error reading sensor data")
 
-while True:
-    # Setup new thread so that 1s loop can be maintained
-    newThread = threading.Thread(target=read_data_and_send_to_server)
-    newThread.start()
-
-    # Wait for one second (-0.0025s because of previous execution time)
-    time.sleep(0.9975)
+# Setup new Timer so that 1s loop can be maintained
+timer = threading.Timer(1, read_data_and_send_to_server)
+timer.start()

@@ -22,7 +22,7 @@ exports.create = (req, res) => {
 	// return
 
 	const data = {
-		timestamp: req.body.timestamp,
+		timestamp: new Date(req.body.timestamp),
 		temperature: req.body.temperature,
 		humidity: req.body.humidity,
 	}

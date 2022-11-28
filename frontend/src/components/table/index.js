@@ -17,7 +17,7 @@ const columns = [
 	{
 		name: 'Zeitpunkt',
 		selector: (row) => row.timestamp,
-		format: (row, index) => moment(row.timestamp).format('DD.MM.YYYY hh:mm:ss'),
+		format: (row, index) => moment(row.timestamp).format('DD.MM.YYYY HH:mm:ss'),
 		sortable: true,
 	},
 ]

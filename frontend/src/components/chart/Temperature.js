@@ -28,7 +28,7 @@ const TemperatureChart = () => {
 				interval={450}
 				dataKey='timestamp'
 				tickFormatter={(value, index) => {
-					return moment(value).format('hh:mm')
+					return moment(value).format('HH:mm')
 				}}
 			/>
 			<YAxis domain={['dataMin - 0.5', 'dataMax + 0.5']} />
