@@ -7,6 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
+    networks:
+      - hausmesse-2022-network
     ports:
       - 3306:3306
 
@@ -14,6 +16,8 @@ services:
     image: adminer
     depends_on:
       - db
+    networks:
+      - hausmesse-2022-network
     restart: always
     ports:
       - 8080:8080
@@ -22,12 +26,14 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    command: bash -c "cd /usr/src/app/Client/src/client && javac Client.java && java Client"
     volumes:
       - ./client:/usr/src/app
     depends_on:
       - db
+    networks:
+      - hausmesse-2022-network
     restart: always
+    privileged: true
 
   nginx:
     build:
@@ -36,11 +42,15 @@ services:
     depends_on:
       - server
       - frontend
+    networks:
+      - hausmesse-2022-network
     restart: always
     ports:
       - 80:80
 
   server:
+    env_file:
+      - ./.env
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -49,6 +59,8 @@ services:
       - ./server:/usr/src/app
     depends_on:
       - db
+    networks:
+      - hausmesse-2022-network
     restart: always
     ports:
       - 5001:${SERVER_PORT}
@@ -64,6 +76,11 @@ services:
       - WATCHPACK_POLLING=true
     depends_on:
       - server
+    networks:
+      - hausmesse-2022-network
     restart: always
     ports:
       - 3001:${FRONTEND_PORT}
+
+networks:
+  hausmesse-2022-network:

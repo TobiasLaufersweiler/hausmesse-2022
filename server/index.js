@@ -14,43 +14,44 @@ const PORT = process.env.SERVER_PORT || 5000
 
 const app = express()
 const server = http.createServer(app, {
-	cors: {
-		origin: 'http://localhost:3000',
-	},
+  cors: {
+    origin: 'http://localhost:3000',
+  },
 })
 const io = new Server(server)
 
 global.io = io
 
 io.on('connection', (socket) => {
-	console.log('a user connected')
-	global.socket = socket
-	socket.on('disconnect', () => {
-		console.log('user disconnected')
-	})
+  console.log('a user connected')
+  global.socket = socket
+  socket.on('disconnect', () => {
+    console.log('user disconnected')
+  })
 })
 
 db.sequelize
-	.sync()
-	.then(() => {
-		console.log('Synced db.')
-	})
-	.catch((err) => {
-		console.log('Failed to sync db: ' + err.message)
-	})
+  .sync()
+  .then(() => {
+    console.log('Synced db.')
+  })
+  .catch((err) => {
+    console.log('Failed to sync db: ' + err.message)
+    process.exit(1)
+  })
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) =>
-	res.json({
-		name: 'hausmesse-2022',
-		authors: 'Marc Wissler, Ian Murawski, Tobias Laufersweiler',
-	})
+  res.json({
+    name: 'hausmesse-2022',
+    authors: 'Marc Wissler, Ian Murawski, Tobias Laufersweiler',
+  })
 )
 
 dataRoutes(app)
 
 server.listen(PORT, () => {
-	console.log(`Listening on http://localhost:${PORT}`)
+  console.log(`Listening on http://localhost:${PORT}`)
 })

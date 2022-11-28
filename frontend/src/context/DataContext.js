@@ -9,7 +9,7 @@ const DataProvider = ({ children }) => {
 	const [data, setData] = useState([])
 
 	const loadData = async () => {
-		const res = await axios.get('http://localhost:5000/data')
+		const res = await axios.get('http://localhost/api/data')
 		setData(res.data)
 
 		return res
@@ -20,8 +20,11 @@ const DataProvider = ({ children }) => {
 	}, [])
 
 	useEffect(() => {
+		socket.off('data-entry')
+
 		if (liveUpdates) {
 			socket.on('data-entry', (newEntry) => {
+				console.log(newEntry)
 				data.push(newEntry)
 				setData(data)
 			})
