@@ -23,15 +23,24 @@ const Card = styled.div`
 	box-shadow: 0 10px 25px ${rgba(colors.mediumBlue, 0.15)};
 `
 
+const CardHeading = styled.h2`
+	padding: 0;
+	margin: 0;
+	margin-bottom: 24px;
+	color: ${colors.darkBlue};
+`
+
 const App = () => {
 	return (
 		<>
 			<Header />
 			<Grid>
 				<Card>
+					<CardHeading>Temperatur</CardHeading>
 					<TemperatureChart />
 				</Card>
 				<Card>
+					<CardHeading>Luftfeuchtigkeit</CardHeading>
 					<HumidityChart />
 				</Card>
 				<Card style={{ gridColumn: 'span 2' }}>
