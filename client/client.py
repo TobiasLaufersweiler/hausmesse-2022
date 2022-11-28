@@ -36,7 +36,7 @@ def read_data_and_send_to_server():
         }
 
         # Send data to backend
-        res = requests.post("http://localhost/api/data", data)
+        res = requests.post("http://nginx/api/data", data)
 
         # Show result or error
         try:

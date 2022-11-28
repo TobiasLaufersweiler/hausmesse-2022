@@ -22,18 +22,18 @@ services:
     ports:
       - 8080:8080
 
-  # client:
-  #   build:
-  #     context: ./client
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - ./client:/usr/src/app
-  #   depends_on:
-  #     - db
-  #   networks:
-  #     - hausmesse-2022-network
-  #   restart: always
-  #   privileged: true
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - ./client:/usr/src/app
+    depends_on:
+      - db
+    networks:
+      - hausmesse-2022-network
+    restart: always
+    privileged: true
 
   nginx:
     build:
