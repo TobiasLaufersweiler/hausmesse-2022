@@ -22,12 +22,12 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    command: bash -c "cd /usr/src/app/Client/src/client && javac Client.java && java Client"
     volumes:
       - ./client:/usr/src/app
     depends_on:
       - db
     restart: always
+    privileged: true
 
   nginx:
     build:
