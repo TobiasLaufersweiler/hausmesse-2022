@@ -6,34 +6,34 @@ import moment from 'moment'
 import colors from '../../utils/colors'
 
 const HumidityChart = () => {
-	const { data } = useContext(DataContext)
+  const { data } = useContext(DataContext)
 
-	return (
-		<LineChart
-			width={600}
-			height={300}
-			data={data}
-			margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-		>
-			<Line
-				type='monotone'
-				dataKey='humidity'
-				stroke={colors.lightBlue}
-				dot={<></>}
-			/>
+  return (
+    <LineChart
+      width={600}
+      height={300}
+      data={data}
+      margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+    >
+      <Line
+        type='monotone'
+        dataKey='humidity'
+        stroke={colors.lightBlue}
+        dot={<></>}
+      />
 
-			<Tooltip />
+      <Tooltip />
 
-			<XAxis
-				interval={450}
-				dataKey='timestamp'
-				tickFormatter={(value, index) => {
-					return moment(value).format('HH:mm')
-				}}
-			/>
-			<YAxis domain={['dataMin - 1', 'dataMax + 1']} />
-		</LineChart>
-	)
+      <XAxis
+        interval={data.length / 10}
+        dataKey='timestamp'
+        tickFormatter={(value, index) => {
+          return moment(value).format('HH:mm')
+        }}
+      />
+      <YAxis domain={['dataMin - 1', 'dataMax + 1']} />
+    </LineChart>
+  )
 }
 
 export default HumidityChart

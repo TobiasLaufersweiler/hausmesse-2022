@@ -7,4 +7,4 @@ RUN pip3 install --trusted-host pypi.org --trusted-host pypi.python.org --truste
 
 COPY . .
 
-CMD [ "python3", "./client_local.py" ]
+CMD [ "python3", "./client.py" ]
