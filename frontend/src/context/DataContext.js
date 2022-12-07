@@ -27,15 +27,16 @@ const DataProvider = ({ children }) => {
     if (liveUpdates) {
       socket.on('data-entry', (newEntry) => {
         console.log(newEntry)
-        data.push(newEntry)
-        if (data.length > 14400) {
-          data.shift()
+        const newData = [...data]
+        newData.push(newEntry)
+        if (newData.length > 14400) {
+          newData.shift()
         }
-        setData(data)
+        setData(newData)
         setCurrentData(newEntry)
       })
     }
-  }, [data])
+  }, [data, liveUpdates])
 
   return (
     <DataContext.Provider value={{ data, currentData, loadData }}>

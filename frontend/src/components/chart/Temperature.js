@@ -25,7 +25,7 @@ const TemperatureChart = () => {
       <Tooltip />
 
       <XAxis
-        interval={data.length / 10}
+        interval={Number.parseInt(data.length / 10)}
         dataKey='timestamp'
         tickFormatter={(value, index) => {
           return moment(value).format('HH:mm')

@@ -41,7 +41,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
   const limit = Number.parseInt(req.query.limit) || undefined
 
-  DataEntry.findAll({ limit })
+  DataEntry.findAll({ limit, order: [['timestamp', 'DESC']] })
     .then((data) => res.json(data))
     .catch((error) => {
       console.log(error)

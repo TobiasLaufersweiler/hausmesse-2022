@@ -2,25 +2,25 @@ import React, { createContext, useState } from 'react'
 import { io } from 'socket.io-client'
 
 const socket = io('http://localhost/', {
-	transports: ['websocket'],
+  transports: ['websocket'],
 })
-
-socket.on('')
 
 const SocketContext = createContext()
 
 const SocketProvider = ({ children }) => {
-	const [liveUpdates, setLiveUpdates] = useState(true)
+  const [liveUpdates, setLiveUpdates] = useState(false)
 
-	const toggleLiveUpdates = async () => {
-		setLiveUpdates(!liveUpdates)
-	}
+  const toggleLiveUpdates = async () => {
+    setLiveUpdates(!liveUpdates)
+  }
 
-	return (
-		<SocketContext.Provider value={{ socket, liveUpdates, toggleLiveUpdates }}>
-			{children}
-		</SocketContext.Provider>
-	)
+  console.log(liveUpdates)
+
+  return (
+    <SocketContext.Provider value={{ socket, liveUpdates, toggleLiveUpdates }}>
+      {children}
+    </SocketContext.Provider>
+  )
 }
 
 export default SocketContext

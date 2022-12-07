@@ -17,6 +17,10 @@ const HeaderComponent = styled.header`
   color: ${colors.white};
   border-radius: 18px;
   box-shadow: 0 10px 25px ${rgba(colors.darkBlue, 0.2)};
+
+  @media (max-width: 850px) {
+    flex-direction: column;
+  }
 `
 
 const Title = styled.h1`
@@ -50,6 +54,12 @@ const Button = styled.button`
   cursor: pointer;
 `
 
+const LiveUpdatesWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+`
+
 const Header = () => {
   const { currentData, loadData } = useContext(DataContext)
   const { liveUpdates, toggleLiveUpdates } = useContext(SocketContext)
@@ -62,7 +72,7 @@ const Header = () => {
         <br />
         Luftfeuchtigkeit: <b>{currentData.humidity}%</b>
       </LiveData>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <LiveUpdatesWrapper>
         {!liveUpdates && <Button onClick={loadData}>Reload Data</Button>}
         <Text>
           <span>Live Updates</span>
@@ -74,7 +84,7 @@ const Header = () => {
             }}
           ></Switch>
         </Text>
-      </div>
+      </LiveUpdatesWrapper>
     </HeaderComponent>
   )
 }
