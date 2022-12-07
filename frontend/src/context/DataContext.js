@@ -10,7 +10,7 @@ const DataProvider = ({ children }) => {
   const [currentData, setCurrentData] = useState([])
 
   const loadData = async () => {
-    const res = await axios.get('http://localhost/api/data?limit=14400')
+    const res = await axios.get('/api/data?limit=14400')
     setData(res.data)
     setCurrentData(res.data[res.data.length - 1])
 
