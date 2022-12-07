@@ -8,7 +8,7 @@ const socket = io('http://localhost/', {
 const SocketContext = createContext()
 
 const SocketProvider = ({ children }) => {
-  const [liveUpdates, setLiveUpdates] = useState(false)
+  const [liveUpdates, setLiveUpdates] = useState(true)
 
   const toggleLiveUpdates = async () => {
     setLiveUpdates(!liveUpdates)
