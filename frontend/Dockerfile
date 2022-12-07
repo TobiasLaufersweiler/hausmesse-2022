@@ -16,6 +16,8 @@ COPY package.json ./
 # RUN npm config set email tobias.laufersweiler@sick.de
 # RUN npm config set always-auth true
 
+RUN npm install -g npm@latest
+
 RUN npm install
 RUN npm install --global serve
 # If you are building your code for production
